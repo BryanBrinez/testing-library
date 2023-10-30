@@ -74,4 +74,3 @@ describe("DELETE /api/book/:id", () => {
 
   // Aquí podrías agregar más pruebas para otros escenarios, como cuando se proporciona un bookId válido o inválido.
 });
-
