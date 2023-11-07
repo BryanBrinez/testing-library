@@ -4,6 +4,28 @@ import USUARIOS from "../../../models/usuarios";
 import LOAN from "../../../models/prestamos";
 import BOOK from "../../../models/libros";
 
+
+export const GET = async () => {
+  try {
+    await connectDB();
+
+    // Encuentra todos los préstamos y realiza un join con las colecciones de libros y usuarios
+    // Asumiendo que 'book' y 'user' son ObjectId que hacen referencia a sus respectivas colecciones
+    const loans = await LOAN.find()
+      .populate('book')
+      .populate('user');
+
+    return new Response(JSON.stringify(loans), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ message: "Failed to fetch loans", error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+};
 export async function POST(request) {
   const { book, user } = await request.json();
 

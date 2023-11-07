@@ -36,11 +36,17 @@ export async function POST(request) {
 
 // Suponiendo que se use un ID de libro en la URL como '/api/books/:id'
 export async function DELETE(request) {
+  
+  
   try {
     await connectDB();
 
+
     // Extracción del ID del libro desde la URL (ajustar según tu implementación de routing)
     const { bookId } = await request.json();
+
+    console.log("entroooo")
+    console.log(bookId)
 
     // Si no se proporciona un ID, retornar error
     if (!bookId) {
@@ -61,3 +67,17 @@ export async function DELETE(request) {
 }
 
 
+export const GET = async (request) => {
+  try {
+    await connectDB();
+    
+
+    
+
+    const searchFound = await BOOK.find();
+
+    return NextResponse.json(searchFound);
+  } catch (error) {
+    return new Response("Failed to fetch all prompts", { status: 500 });
+  }
+};
